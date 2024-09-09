@@ -1,0 +1,35 @@
+<mat-card class="example-card" color="accent">
+
+    <!-- HEADER -->
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Add New Todo List</mat-card-title>
+    </mat-card-header>
+
+
+
+    <!-- CONTENT -->
+    <mat-card-content>
+        <form class="example-form">
+
+            <!-- LIST NAME -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Title</mat-label>
+                <input type="text" matInput [formControl]="titleFormControl">
+                <mat-error *ngIf="titleFormControl.hasError('required')">Todo List is <strong>required</strong></mat-error>
+            </mat-form-field>
+
+            <br/>
+
+            <!-- PUBLIC LIST -->
+            <mat-checkbox [formControl]="publicFormControl">Public List</mat-checkbox>
+
+        </form>
+        <span *ngIf="errorMessage" class="error">{{errorMessage}}</span> <!--ERROR MSG-->
+    </mat-card-content>
+
+
+    <mat-card-actions>
+        <button (click)="createList()" mat-flat-button color="accent">Add New List</button>
+    </mat-card-actions>
+  </mat-card>

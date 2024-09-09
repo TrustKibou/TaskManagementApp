@@ -1,0 +1,62 @@
+<mat-card class="card" color="accent">
+
+    <!-- HEADER -->
+    <mat-card-header>
+        <div mat-card-avatar class="header-image"></div>
+        <mat-card-title>Share Your List</mat-card-title>
+    </mat-card-header>
+
+    <!-- CONTENT -->
+    <mat-card-content>
+        <form class="form">
+
+
+            <!-- EMAIL TO SHARE -->
+            <mat-form-field class="full-width">
+                <mat-label>Email</mat-label>
+                <input type="text" matInput [formControl]="emailFormControl">
+                <mat-error *ngIf="emailFormControl.hasError('required')">User Email is <strong>required</strong></mat-error>
+            </mat-form-field>
+
+            <br/>
+
+        </form>
+        <span *ngIf="errorMessage" class="error">{{errorMessage}}</span> <!--ERROR MSG-->
+    </mat-card-content>
+
+    <mat-card-actions>
+        <button (click)="shareList()" mat-flat-button color="accent">Share</button>
+    </mat-card-actions>
+  </mat-card>
+
+
+
+
+
+  <!------------ LIST OF SHARED USERS-->
+  <mat-card class="card" color="accent" *ngIf="this.sharedWithUsers.length != 0">
+
+    <!-- HEADER -->
+    <mat-card-header>
+        <div mat-card-avatar class="header-image"></div>
+        <mat-card-title>List of Shared Users</mat-card-title>
+    </mat-card-header>
+
+    <!-- CONTENT -->
+    <mat-card-content>
+        <form class="form">
+
+            <!-- PEOPLE SHARED WITH -->
+            <mat-list *ngFor="let user of this.sharedWithUsers">
+                <mat-list-item  (click)="deleteSharedUser(user.email)">
+                    <span matListItemTitle>{{user.email}}</span>
+                    <!-- <span class="spacer">&nbsp;</span> -->
+                    <span matListItemLine style="color:red; font-style: italic; vertical-align: super;">&nbsp;Click to Delete</span>
+                </mat-list-item>
+            </mat-list>
+        
+            <br/>
+
+        </form>
+    </mat-card-content>
+  </mat-card>

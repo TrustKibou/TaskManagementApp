@@ -1,0 +1,52 @@
+<mat-toolbar color="primary">
+
+    <!-- BUTTON: MENU -->
+    <button mat-icon-button class="example-icon" (click)="toggleMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+
+    <!-- TITLE -->
+    <span>To-Do List Manager</span>
+
+    <!-- SPACER -->
+    <span class="example-spacer"></span>
+
+    <!-- BUTTON: HOME --> <!--NOT NEEDED-->
+        <!-- <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+            <mat-icon>home</mat-icon>
+        </button> -->
+
+    <!----------------USER NOT LOGGED IN---------------->
+    <!-- BUTTON: LOGIN -->
+    <button [routerLink]="['/login']" *ngIf="!this.currentUser" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>login</mat-icon>
+    </button>
+
+    <!-- BUTTON: REGISTER -->
+    <button [routerLink]="['/register']" *ngIf="!this.currentUser" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>person_add</mat-icon>
+    </button>
+
+    <!----------------USER IS LOGGED IN---------------->
+    <!-- NAME -->
+    <span *ngIf="this.currentUser">
+        {{this.currentUser.name}}
+    </span>
+
+    <!-- BUTTON: ACCOUNT -->
+    <button [routerLink]="['/account']" *ngIf="this.currentUser" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>person</mat-icon>
+    </button>
+
+    <!-- BUTTON: ADD TODO LIST -->
+    <button [routerLink]="['/addlist']" *ngIf="this.currentUser" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>add</mat-icon>
+    </button>
+
+        
+    <!-- BUTTON: LOG OUT -->
+    <button [routerLink]="['/']" (click)="logout()" *ngIf="this.currentUser" mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+        <mat-icon>logout</mat-icon>
+    </button>
+
+  </mat-toolbar>

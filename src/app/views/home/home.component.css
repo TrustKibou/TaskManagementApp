@@ -1,0 +1,29 @@
+mat-card {
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+    flex-shrink: 1;
+}
+
+span {
+    padding:10px;
+}
+
+span.spacer {
+    display: flex;
+    flex: 2 2 auto;
+}
+
+.pubIcon {
+    order: 1;
+}
+
+mat-icon {
+    padding-right: 10px;
+}
+
+mat-card-content {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 20px 25px 10px 25px;
+}

@@ -1,0 +1,48 @@
+<mat-card class="example-card" color="accent">
+
+    <!-- HEADER -->
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Add Sub-Item</mat-card-title>
+    </mat-card-header>
+
+
+
+    <!-- CONTENT -->
+    <mat-card-content>
+        <form class="example-form">
+
+            <!-- PEOPLE SHARED WITH -->
+            
+
+            <!-- EMAIL TO SHARE -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Task Title</mat-label>
+                <input type="text" matInput [formControl]="nameFormControl">
+                <mat-error *ngIf="nameFormControl.hasError('required')">Task Title is <strong>required</strong></mat-error>
+            </mat-form-field>
+
+            <br/>
+
+            <!-- DATE PICKER ... having trouble getting it to work... -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Choose Due Date</mat-label>
+                <input matInput [matDatepicker]="picker">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker">
+                  <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <br/>
+
+        </form>
+        <span *ngIf="errorMessage" class="error">{{errorMessage}}</span> <!--ERROR MSG-->
+    </mat-card-content>
+
+
+    <mat-card-actions>
+        <button (click)="addSubTask()" mat-flat-button color="accent">Add Sub-Task</button>
+    </mat-card-actions>
+  </mat-card>

@@ -1,0 +1,21 @@
+<mat-card *ngIf="this.currentTodo">
+    <mat-card-header>
+        <mat-card-title>{{this.currentTodo.title}}</mat-card-title>
+        <mat-card-subtitle>Created on: {{this.currentTodo.created_at}}</mat-card-subtitle>
+        <span class="spacer"></span>
+        <mat-icon class="pubIcon"   matTooltip="Public Todo List"                                 *ngIf="this.currentTodo.public_list == true">public</mat-icon>
+        <mat-icon class="addIcon"   matTooltip="Add Sub-Task to Todo List" (click)="addSubItem()" *ngIf="this.currentTodo.created_by == this.currentUser?.id || this.sharedWith == true">add_box</mat-icon>
+        <mat-icon class="shareIcon" matTooltip="Share Todo List"           (click)="share()"      *ngIf="currentTodo.created_by == currentUser?.id">share</mat-icon>
+        <mat-icon class="delIcon"   matTooltip="Delete Todo List"          (click)="deleteTodo()" *ngIf="currentTodo.created_by == currentUser?.id">delete</mat-icon>
+    </mat-card-header>
+
+    
+
+    <mat-card-content *ngFor="let subtask of this.currentTodoExtensive?.list_items">
+        <mat-checkbox (click)="completeSubTask(subtask.id)" [formControl]="subItemFormControl">{{subtask.task}}</mat-checkbox>
+        <span class="spacer"></span>
+        <mat-icon class="deleteSubtask" matTooltip="Delete Subtask - {{subtask.task}}" style="color: red" (click)="deleteSubItem(subtask.id)" *ngIf="this.currentTodo.created_by == this.currentUser?.id || this.sharedWith == true">cancel</mat-icon>
+    </mat-card-content>
+
+
+</mat-card>

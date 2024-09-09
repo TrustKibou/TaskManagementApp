@@ -1,0 +1,44 @@
+
+<mat-card class="example-card" color="accent">
+
+    <!-- HEADER -->
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Update Account</mat-card-title>
+    </mat-card-header>
+
+
+
+    <!-- CONTENT -->
+    <mat-card-content>
+        <form class="example-form">
+
+            <!-- EMAIL -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput [formControl]="emailFormControl" value="{{this.userInfo?.email}}" placeholder="Ex. pat@example.com">
+            </mat-form-field>
+
+            <br/>
+
+            <!-- PASSWORD -->
+            <mat-form-field class="example-full-width">
+                <mat-label>Password</mat-label>
+                <input type="password" matInput [formControl]="passFormControl">
+            </mat-form-field>
+
+            <br />
+
+            <!-- FIRST NAME -->
+            <mat-form-field class="example-full-width">
+                <mat-label>First Name</mat-label>
+                <input type="text" matInput [formControl]="nameFormControl">
+            </mat-form-field>
+        </form>
+    </mat-card-content>
+
+
+    <mat-card-actions>
+        <button (click)="updateUser()" mat-flat-button color="accent">Update Account</button>
+    </mat-card-actions>
+  </mat-card>
