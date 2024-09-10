@@ -12,11 +12,11 @@ Ensure Node packages are installed. Run `ng serve` for a dev server and navigate
 
 ## Screenshots
 
-# User Logged In with Personal Lists
+### User Logged In with Personal Lists
 <img width="1280" alt="WD_Personal-Lists" src="https://github.com/user-attachments/assets/33904eba-d4e5-4747-a3d8-2de829b20c47">
 
-# Lists Shared with User
+### Lists Shared with User
 <img width="1280" alt="WD_Shared-Lists" src="https://github.com/user-attachments/assets/f132984b-5d0f-4c17-a09e-711853d032e6">
 
-# Public Lists Available to Visitors (not logged in)
+### Public Lists Available to Visitors (not logged in)
 <img width="1280" alt="WD_Unlogged-Home" src="https://github.com/user-attachments/assets/9b65647a-7a7f-4d5a-ac1b-4420921ee1de">
