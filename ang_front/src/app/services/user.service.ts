@@ -104,7 +104,7 @@ export class UserService {
 
         // LOG IN
         try {
-            let userToken = await firstValueFrom(this.httpClient.post<UserToken>(`${this.baseURL}user/login`, null, {headers:httpheaders})); // second arg = body // third = header
+            let userToken = await firstValueFrom(this.httpClient.post<UserToken>(`${this.baseURL}user/login`, {}, {headers:httpheaders})); // second arg = body // third = header
             this.currentUserToken = userToken;
             // this.usedLoggedIn.emit(true);
             return userToken;
@@ -119,7 +119,7 @@ export class UserService {
     // GET USER'S INFORMATION
     async getUserInfo() {
         try {
-            let userInfo = await firstValueFrom(this.httpClient.get<UserInfo>(`${this.baseURL}/user`)); // interceptor auto sends token
+            let userInfo = await firstValueFrom(this.httpClient.get<UserInfo>(`${this.baseURL}user`)); // interceptor auto sends token
             this.currentUserInfo = userInfo;
             this.usedLoggedIn.emit(true);
             return userInfo;

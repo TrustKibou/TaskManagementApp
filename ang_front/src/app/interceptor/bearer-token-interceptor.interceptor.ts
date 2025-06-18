@@ -4,6 +4,10 @@ import { UserService } from '../services/user.service';
 
 export const bearerTokenInterceptorInterceptor: HttpInterceptorFn = (req, next) => {
     let uServ = inject(UserService);   // now same instance of website bloggerservice
+    
+    if (req.url.includes('/user/login')) {
+        return next(req);
+    }
 
     // when an HTTP call is intercepted, we take an instance of BloggerService..
     // if token exists, we are going to set authorization header AUTOMATICALLY as part of request

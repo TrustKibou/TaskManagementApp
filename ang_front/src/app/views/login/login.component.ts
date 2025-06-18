@@ -21,12 +21,13 @@ export class LoginComponent {
     async loginUser() {
         let userToken = await this.uServ.loginUser(this.username, this.password);
 
-        if (userToken) {
+        if (userToken && userToken.token) {
             let userInfo = await this.uServ.getUserInfo();
             this.todoService.updateTodoLists();
             this.router.navigate(["/"]); // navigate back to home page for list of todos
         }
         else {
+            console.warn("Login failed; no user token returned.");
         }
     }
 
