@@ -7,8 +7,11 @@ This is a full-stack task management application with an Angular front-end that 
 
 ## Steps to Run Development Server
 
-Ensure Node packages are installed. Run `ng serve` for a dev server and navigate to `http://localhost:4200/`.
+Ensure Node packages are installed.
 
+Run `ng serve` for a dev server and navigate to `http://localhost:4200/`.
+
+Run `node dist/main.js` to launch Express API.
 
 ## Screenshots
 

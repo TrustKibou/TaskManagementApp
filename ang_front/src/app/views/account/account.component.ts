@@ -34,6 +34,7 @@ export class AccountComponent {
     async updateUser() {
 
         let em = this.emailFormControl.value;
+        
         // if (em) {
         //     // console.log(this.emailFormControl.value);
         //     // console.log(this.nameFormControl.value);

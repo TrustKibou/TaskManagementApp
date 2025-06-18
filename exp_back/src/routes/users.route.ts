@@ -34,12 +34,12 @@ app.post('/login', (req, res, next)=>{
 
 
         // CHECK IF PASSWORD MATCHES----------------
-        bcrypt.compare(userPass,foundUser.password,(err,result)=>{
+        bcrypt.compare(userPass, foundUser.password, (err,result) => {
 
             // USER FOUND --- PROCEED
             if(result) {
-              let token = jwt.sign({email: foundUser?.email}, 'SECRETKEY');
-              res.status(200).send({token: token});
+                let token = jwt.sign({email: foundUser?.email}, 'SECRETKEY');
+                res.status(200).send({token: token});
             }
 
             // USER NOT FOUND --- ERROR
@@ -54,7 +54,7 @@ app.post('/login', (req, res, next)=>{
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////// POST --- ROOT (CREATE)
+///////////////////////////////////////////////////////// GET - VIEW USER LIST (TEST - TEMP METHOD)
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -63,11 +63,18 @@ app.get('/', (req, res) => {
     return res.status(200).send(listOfUsers);
 });
 
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////// POST --- ROOT (CREATE)
+//////////////////////////////////////////////////////////////////////////////////////////
+
 app.post('/', (req, res, next)=>{
 
     // CATCH ERRORS--------------------------------------------------
     if (!req.body.email || !req.body.password || !req.body.name) {
-        return next(new CustomError(400, "Email, password, and name are all required"));
+        return next(new CustomError(400, "Email, password, and name are all required"));    // pass off to global error handler defined in main.ts
     }
 
 
