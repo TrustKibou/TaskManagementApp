@@ -1,0 +1,10 @@
+<app-navbar (toggle)="drawer.toggle()"></app-navbar>
+
+<mat-drawer-container class="container">
+    <mat-drawer #drawer mode="side" opened>
+        <app-sidenav></app-sidenav>
+    </mat-drawer>
+    <mat-drawer-content>
+        <router-outlet />
+    </mat-drawer-content>
+</mat-drawer-container>

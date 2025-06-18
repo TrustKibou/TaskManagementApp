@@ -1,0 +1,29 @@
+<mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start">
+
+    <!----------------- PUBLIC TODO LISTS ----------------->
+    <mat-tab label="Public">
+        <mat-nav-list>
+            <mat-list-item *ngFor="let pubTodo of listOfPublicTodos" (click)="viewTodo(pubTodo)">
+                {{pubTodo.title}}
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-tab>
+
+    <!----------------- PERSONAL TODO LISTS ----------------->
+    <mat-tab label="Personal">
+        <mat-nav-list>
+            <mat-list-item *ngFor="let persTodo of listOfPersonalTodos" (click)="viewTodo(persTodo)">
+                {{persTodo.title}}
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-tab>
+
+    <!----------------- SHARED TODO LISTS ----------------->
+    <mat-tab label="Shared">
+        <mat-nav-list>
+            <mat-list-item *ngFor="let sharedTodo of listOfSharedTodos" (click)="viewTodo(sharedTodo)">
+                {{sharedTodo.title}}
+            </mat-list-item>
+        </mat-nav-list>
+    </mat-tab>
+  </mat-tab-group>  

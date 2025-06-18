@@ -1,0 +1,5 @@
+<input type="text" placeholder="Enter Username" [(ngModel)]="username"> <!--using ngMod instead of reactive; can use both interchangeably-->
+<br/>
+<input type="password" placeholder="Enter password" [(ngModel)]="password">
+<br/><br/>
+<button (click)="loginUser()" mat-flat-button color="primary">Login</button>

@@ -1,0 +1,13 @@
+mat-list-item {
+    padding: 0px;
+    /* width: 100%; */
+}
+
+mat-tab-group {
+    overflow: hidden;
+    padding-left: 20px;
+}
+
+mat-drawer-content {
+    width: 100%;
+}
