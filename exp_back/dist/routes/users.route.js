@@ -123,7 +123,7 @@ app.patch('/', (req, res, next) => {
             return next(new customerror_model_1.CustomError(401, "Invalid or unsupported authentication method")); // purely for postman variables being set
         // CHECK IF NAME, PW EXISTS & UPDATE --------------------------------------------------
         if (req.body.email != undefined)
-            user_model_1.default[userIndex] = req.body.email;
+            user_model_1.default[userIndex].email = req.body.email;
         if (req.body.name != undefined)
             user_model_1.default[userIndex].name = req.body.name;
         if (req.body.password != undefined) {

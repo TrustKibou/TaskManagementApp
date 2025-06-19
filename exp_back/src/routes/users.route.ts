@@ -139,7 +139,7 @@ app.patch('/', (req, res, next)=>{
         // CHECK IF NAME, PW EXISTS & UPDATE --------------------------------------------------
 
         if (req.body.email != undefined)
-            listOfUsers[userIndex] = req.body.email;
+            listOfUsers[userIndex].email = req.body.email;
         
         if (req.body.name != undefined)  
             listOfUsers[userIndex].name = req.body.name;

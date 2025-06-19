@@ -57,19 +57,21 @@ export class UserService {
     async updateUser(email:string, pass:string, name:string) {
 
         if (!email && this.currentUserInfo) email = this.currentUserInfo.email;
-
+        
+        
         // create user object
         let userData = {
             "email": email,
             "password": pass,
             "name": name
         }
-        // console.log(userData);
-
-        // send in post request to create
+        
+        
         try {
-            // 
+            
             let response = await firstValueFrom(this.httpClient.patch(`${this.baseURL}user`, userData));
+            
+            console.log("A");
 
             // IF EMAIL OR PASS CHANGED, LOG OUT
             if (this.currentUserInfo && email != this.currentUserInfo.email) {
@@ -79,7 +81,6 @@ export class UserService {
             }
             else {
                 this.getUserInfo();
-                // this.usedLoggedIn.emit(true);
                 this._snackBar.open("User successfully updated!", 'Close', {verticalPosition:'top', duration:2000});
             }
             return true;

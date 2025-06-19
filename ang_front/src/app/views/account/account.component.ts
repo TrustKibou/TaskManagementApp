@@ -16,10 +16,13 @@ import { UserInfo } from '../../models/user-info';
 export class AccountComponent {
 
     // STATE-------------------------------
-    emailFormControl = new FormControl('', [Validators.email]);
-    passFormControl = new FormControl('', []);
-    nameFormControl = new FormControl('', []);
+    emailFormControl = new FormControl('', [Validators.email]);     // initial val empty; match email patt
+    passFormControl = new FormControl('', []);  // no validators (future-prep) : any string accepted
+    nameFormControl = new FormControl('', []);  // " "
+    
+    
     userInfo:UserInfo|null = null;
+    
     errorMessage:string = "";
 
     // CONSTRUCTOR-------------------------
@@ -29,6 +32,9 @@ export class AccountComponent {
         // if (this.userInfo)
         //     this.emailFormControl.setValue(this.userInfo.email);
     }
+    
+    
+    
     
     // BEHAVIOR----------------------------
     async updateUser() {
@@ -45,6 +51,8 @@ export class AccountComponent {
         if (!this.emailFormControl.invalid && !this.nameFormControl.invalid && !this.passFormControl.invalid) {
             let result = await this.uServ.updateUser(this.emailFormControl.value as string, this.passFormControl.value as string, this.nameFormControl.value as string);
 
+            console.log("T");
+            
             if (result) {
                 this.errorMessage = "User successfully created!";
                 // this.router.navigate(['/login']);
