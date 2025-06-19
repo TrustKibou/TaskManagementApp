@@ -55,7 +55,6 @@ export class AccountComponent {
             
             if (result) {
                 this.errorMessage = "User successfully created!";
-                // this.router.navigate(['/login']);
             }
             else
                 this.errorMessage = "User creation failed!";

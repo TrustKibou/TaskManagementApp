@@ -1,6 +1,14 @@
 # TASK MANAGEMENT APPLICATION
 
 
+## IMPORTANT NOTE
+
+Program is currently under repair. Angular front end works perfectly, but the Express back-end is being fixed to allow all required endpoints.
+
+Expected fix date: 6/20/25
+
+Thank you for your patience!
+
 ## About
 
 This is a full-stack task management application with an Angular front-end that utilizes an Express/Node API for account and task management. Includes user authentication (JWT, bcrypt, BA), dynamic and protected routing (guards), and more. Functionalities include shared and public tasks lists/items, reactive forms, and more.

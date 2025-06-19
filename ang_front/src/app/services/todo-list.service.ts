@@ -40,10 +40,6 @@ export class TodoListService {
         this.listOfPublicTodos = [];
         this.listOfSharedTodos = [];
 
-        // console.log("HEY!");
-        // console.log(this.uServ.currentUserToken?.token);
-        // console.log(this.uServ.currentUserInfo?.id);
-
         // UPDATE LISTS
         this.httpClient.get<TodoList>(`${this.baseURL}todo`).subscribe((data:any)=>{
             for (let row of data) {

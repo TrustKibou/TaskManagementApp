@@ -42,16 +42,4 @@ export class SidenavComponent implements OnInit {
 
         this.todoService.updateTodoLists();
     }
-
-    // asyncTabs: Observable<ExampleTab[]>;
-    
-    // this.asyncTabs = new Observable((observer: Observer<ExampleTab[]>) => {
-    //     setTimeout(() => {
-    //       observer.next([
-    //         {label: 'First', content: 'Content 1'},
-    //         {label: 'Second', content: 'Content 2'},
-    //         {label: 'Third', content: 'Content 3'},
-    //       ]);
-    //     }, 1000);
-    //   });
 }

@@ -71,12 +71,12 @@ export class UserService {
             
             let response = await firstValueFrom(this.httpClient.patch(`${this.baseURL}user`, userData));
             
-            console.log("A");
+            console.log("Success");
 
             // IF EMAIL OR PASS CHANGED, LOG OUT
             if (this.currentUserInfo && email != this.currentUserInfo.email) {
                 this._snackBar.open("User successfully updated! Please log in again.", 'Close', {verticalPosition:'top', duration:2000});
-                this.usedLoggedIn.emit(false);
+                this.usedLoggedIn.emit(false);  // alert sub'd components that user is logged out
                 this.router.navigate(["/login"]);
             }
             else {

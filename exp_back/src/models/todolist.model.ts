@@ -1,4 +1,4 @@
-import {TodoListItem} from './todolistitem.model';
+import { TodoListItem } from './todolistitem.model';
 
 export class TodoList {
     id:number;

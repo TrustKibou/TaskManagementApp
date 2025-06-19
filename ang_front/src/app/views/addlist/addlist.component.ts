@@ -24,6 +24,8 @@ export class AddlistComponent {
 
 
     async createList() {
+        
+        console.log(this.publicFormControl.value);
 
         if (!this.titleFormControl.invalid && !this.publicFormControl.invalid) {
             let result = await this.todoService.createTodoList(this.titleFormControl.value as string, this.publicFormControl.value as string);

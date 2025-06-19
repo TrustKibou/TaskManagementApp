@@ -3,11 +3,9 @@ import listOfUsers, { User } from "../models/user.model";
 import listOfTodos, { TodoList } from "../models/todolist.model";
 import { TodoListItem } from "../models/todolistitem.model";
 import { CustomError } from "../models/customerror.model";
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
-import { request } from "http";
 
-const saltRounds =10;
+
+
 let app = Router();
 let listCounter:number = 0;
 let taskCounter:number = 0;
