@@ -3,11 +3,25 @@
 
 ## IMPORTANT NOTE
 
-Program is currently under repair. Angular front end works perfectly, but the Express back-end is being fixed to allow all required endpoints.
+This app is currently undergoing a refactor! The Angular front-end runs at :4200, but the updated Express back-end that previously paired with it was lost (due to me not taking advantage of version control). At the moment, only secure account creation, login, and public list creation works correctly.
 
-Expected fix date: 6/20/25
+Instead of refactoring/updating the older API still in the repo, I've decided to rewrite it from scratch in order to refresh my Express skills, but primarily because I enjoy building and testing APIs.
 
-Thank you for your patience!
+PLANNED UPDATES:
+- Rebuild and secure all endpoints
+- Update Angular UI/UX design
+- Add task 'projects' features (similar to Todoist)
+- Add search functionality
+- Potentially transition to SQL or AWS MongoDB (for experience)
+- Postman API documentation
+- Rewrite README (setup, preview, ...)
+- Implement Cypress E2E tests
+- Additional improvements TBD!
+
+Thank you for your patience while I rebuild and improve the platform!
+
+FUTURE UPDATES:
+- 
 
 ## About
 
