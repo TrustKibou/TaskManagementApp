@@ -16,7 +16,7 @@ Run `node dist/main.js` in 'exp_back' to launch Express API.
 
 
 ## Notes for Running
-Logins are currently case-sensitive; plan to update so that all email permutations are valid. Current bug with checked tasks not retaining state after refresh or component swap.
+Current bug with checked tasks not retaining state after refresh or component swap.
 
 
 

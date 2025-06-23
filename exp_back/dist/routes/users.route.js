@@ -56,7 +56,7 @@ app.post('/login', (req, res, next) => {
         // DISECT LOGIN INFORMATION----------------
         let userInfo = req.headers['authorization'].split(' ')[1]; // grab username:password
         let decodedUserInfo = atob(userInfo); // decode basic encoding
-        let userEmail = decodedUserInfo.split(':')[0]; // user email
+        let userEmail = decodedUserInfo.split(':')[0].toLowerCase(); // user email
         let userPass = decodedUserInfo.split(':')[1]; // user password
         let foundUser;
         // CHECK IF EMAIL EXISTS----------------
@@ -110,14 +110,16 @@ app.post('/', (req, res, next) => {
         return next(new customerror_model_1.CustomError(400, "Email, password, and name are all required")); // pass off to global error handler defined in main.ts
     }
     // CHECK IF EMAIL IS UNIQUE--------------------------------------------------
+    // convert email to lower case - avoid case-sens when logging in
+    const email = req.body.email.toLowerCase();
     // check if email is already attached to a user
-    let emailIndex = user_model_1.default.findIndex(e => e.email == req.body.email);
+    let emailIndex = user_model_1.default.findIndex(e => e.email == email);
     // email exists - error
     if (emailIndex != -1) {
         return next(new customerror_model_1.CustomError(400, "Email already exists"));
     }
     // CREATE USER AND HASH PASSWORD--------------------------------------------------
-    let newUser = new user_model_1.User(++userCounter, req.body.email, req.body.name);
+    let newUser = new user_model_1.User(++userCounter, email, req.body.name);
     bcrypt_1.default.genSalt(saltRounds, (err, salt) => {
         bcrypt_1.default.hash(req.body.password, salt, (err, hash) => {
             newUser.password = hash;
@@ -136,8 +138,10 @@ app.patch('/', (req, res, next) => {
     if (loggedinUser) {
         // CHECK IF EMAIL EXISTS & IS UNIQUE--------------------------------------------------
         if (req.body.email != undefined) {
+            // convert email to lower case - avoid case-sens when logging in
+            const email = req.body.email.toLowerCase();
             // check if email is already attached to a user
-            let emailIndex = user_model_1.default.findIndex(e => e.email == req.body.email);
+            let emailIndex = user_model_1.default.findIndex(e => e.email == email);
             // email exists - error
             if (emailIndex != -1) {
                 return next(new customerror_model_1.CustomError(400, "Email already exists"));
@@ -149,7 +153,7 @@ app.patch('/', (req, res, next) => {
             return next(new customerror_model_1.CustomError(401, "Invalid or unsupported authentication method")); // purely for postman variables being set
         // CHECK IF NAME, PW EXISTS & UPDATE --------------------------------------------------
         if (req.body.email != undefined)
-            user_model_1.default[userIndex].email = req.body.email;
+            user_model_1.default[userIndex].email = req.body.email.toLowerCase();
         if (req.body.name != undefined)
             user_model_1.default[userIndex].name = req.body.name;
         if (req.body.password != undefined) {

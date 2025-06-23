@@ -25,7 +25,7 @@ app.use((0, cors_1.default)({
 }));
 // TODO: DELETE
 (async () => {
-    const email = 'CodyAlan.cs@gmail.com';
+    const email = 'codyalan.cs@gmail.com';
     const name = 'Cody';
     const password = 'TestPass';
     const hash = await bcrypt_1.default.hash(password, 10);

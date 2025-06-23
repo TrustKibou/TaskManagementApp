@@ -21,7 +21,7 @@ app.post('/login', (req, res, next)=>{
         let userInfo = req.headers['authorization'].split(' ')[1];  // grab username:password
         let decodedUserInfo = atob(userInfo);                       // decode basic encoding
 
-        let userEmail = decodedUserInfo.split(':')[0];               // user email
+        let userEmail = decodedUserInfo.split(':')[0].toLowerCase(); // user email
         let userPass = decodedUserInfo.split(':')[1];                // user password
 
         let foundUser:User;
@@ -96,9 +96,11 @@ app.post('/', (req, res, next)=>{
 
 
     // CHECK IF EMAIL IS UNIQUE--------------------------------------------------
+    // convert email to lower case - avoid case-sens when logging in
+    const email = req.body.email.toLowerCase();
     
     // check if email is already attached to a user
-    let emailIndex = listOfUsers.findIndex(e => e.email == req.body.email);
+    let emailIndex = listOfUsers.findIndex(e => e.email == email);
 
     // email exists - error
     if (emailIndex != -1) {
@@ -108,7 +110,7 @@ app.post('/', (req, res, next)=>{
 
     // CREATE USER AND HASH PASSWORD--------------------------------------------------
 
-    let newUser = new User(++userCounter, req.body.email, req.body.name);
+    let newUser = new User(++userCounter, email, req.body.name);
 
     bcrypt.genSalt(saltRounds, (err, salt)=>{
         bcrypt.hash(req.body.password, salt, (err,hash)=>{
@@ -135,9 +137,12 @@ app.patch('/', (req, res, next)=>{
  
         // CHECK IF EMAIL EXISTS & IS UNIQUE--------------------------------------------------
         if (req.body.email != undefined) {
+            
+            // convert email to lower case - avoid case-sens when logging in
+            const email = req.body.email.toLowerCase();
 
             // check if email is already attached to a user
-            let emailIndex = listOfUsers.findIndex(e => e.email == req.body.email);
+            let emailIndex = listOfUsers.findIndex(e => e.email == email);
 
             // email exists - error
             if (emailIndex != -1) {
@@ -155,8 +160,8 @@ app.patch('/', (req, res, next)=>{
 
         // CHECK IF NAME, PW EXISTS & UPDATE --------------------------------------------------
 
-        if (req.body.email != undefined)
-            listOfUsers[userIndex].email = req.body.email;
+        if (req.body.email != undefined) 
+            listOfUsers[userIndex].email = req.body.email.toLowerCase();
         
         if (req.body.name != undefined)  
             listOfUsers[userIndex].name = req.body.name;

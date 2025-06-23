@@ -33,7 +33,7 @@ app.use(cors({
 
 // TODO: DELETE
 (async () => {
-    const email = 'CodyAlan.cs@gmail.com';
+    const email = 'codyalan.cs@gmail.com';
     const name = 'Cody';
     const password = 'TestPass';
     
