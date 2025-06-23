@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const customerror_model_1 = require("./models/customerror.model");
+const user_model_1 = require("./models/user.model");
+const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const cors_1 = __importDefault(require("cors"));
 // ROUTES
@@ -21,6 +23,17 @@ app.use((0, cors_1.default)({
     origin: 'http://localhost:4200',
     credentials: true,
 }));
+// TODO: DELETE
+(async () => {
+    const email = 'CodyAlan.cs@gmail.com';
+    const name = 'Cody';
+    const password = 'TestPass';
+    const hash = await bcrypt_1.default.hash(password, 10);
+    const user = new user_model_1.User(0, email, name);
+    user.password = hash;
+    users_route_1.listOfUsers.push(user);
+    console.log("Initial login created");
+})();
 //////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////// ROOT AUTHENTICATION
 //////////////////////////////////////////////////////////////////////////////////////////

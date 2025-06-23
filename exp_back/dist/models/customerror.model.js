@@ -4,7 +4,7 @@ exports.CustomError = void 0;
 class CustomError extends Error {
     statusCode;
     constructor(statusCode, message) {
-        super(message); //Invoke the parent class Error constructor with its parameters
+        super(message); // call Error with message
         this.statusCode = statusCode;
     }
 }

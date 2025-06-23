@@ -1,13 +1,26 @@
 # TASK MANAGEMENT APPLICATION
 
+## About
+This is a full-stack task management application with an Angular front-end that utilizes an Express/Node API for account and task management. Includes user authentication (JWT, bcrypt, BA), dynamic and protected routing, and more. Features include private, shared and public task lists/items, reactive forms, and more (implemented and to come).
 
-## IMPORTANT NOTE
+(The back-end is now updated so that it works perfectly with the Angular front-end; there are a few bugs detailed below that I am fixing. Thank you for your patience as I repair!)
 
-This app is currently undergoing a refactor! The Angular front-end runs at :4200, but the updated Express back-end that previously paired with it was lost (due to me not taking advantage of version control). At the moment, only secure account creation, login, and public list creation works correctly.
 
-Instead of refactoring/updating the older API still in the repo, I've decided to rewrite it from scratch in order to refresh my Express skills, but primarily because I enjoy building and testing APIs.
+## Steps to Run Development Server
+Ensure Node packages are installed.
 
-PLANNED UPDATES:
+Run `ng serve` in 'ang_front' for a dev server and navigate to `http://localhost:4200/`.
+
+Run `node dist/main.js` in 'exp_back' to launch Express API.
+
+
+
+## Notes for Running
+Logins are currently case-sensitive; plan to update so that all email permutations are valid. Current bug with checked tasks not retaining state after refresh or component swap.
+
+
+
+## Planned Updates
 - Rebuild and secure all endpoints
 - Update Angular UI/UX design
 - Add task 'projects' features (similar to Todoist)
@@ -18,22 +31,7 @@ PLANNED UPDATES:
 - Implement Cypress E2E tests
 - Additional improvements TBD!
 
-Thank you for your patience while I rebuild and improve the platform!
 
-FUTURE UPDATES:
-- 
-
-## About
-
-This is a full-stack task management application with an Angular front-end that utilizes an Express/Node API for account and task management. Includes user authentication (JWT, bcrypt, BA), dynamic and protected routing (guards), and more. Functionalities include shared and public tasks lists/items, reactive forms, and more.
-
-## Steps to Run Development Server
-
-Ensure Node packages are installed.
-
-Run `ng serve` for a dev server and navigate to `http://localhost:4200/`.
-
-Run `node dist/main.js` to launch Express API.
 
 ## Screenshots
 

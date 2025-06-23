@@ -28,6 +28,29 @@ app.use(cors({
     credentials: true,
 }));
 
+
+
+
+// TODO: DELETE
+(async () => {
+    const email = 'CodyAlan.cs@gmail.com';
+    const name = 'Cody';
+    const password = 'TestPass';
+    
+    const hash = await bcrypt.hash(password, 10);
+    const user = new User(0, email, name);
+    user.password = hash;
+    listOfUsers.push(user);
+    console.log("Initial login created");
+    
+})();
+
+
+
+
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////// ROOT AUTHENTICATION
 //////////////////////////////////////////////////////////////////////////////////////////

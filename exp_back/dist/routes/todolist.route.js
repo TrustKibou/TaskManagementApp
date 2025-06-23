@@ -15,13 +15,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -32,7 +42,6 @@ const user_model_1 = __importDefault(require("../models/user.model"));
 const todolist_model_1 = __importStar(require("../models/todolist.model"));
 const todolistitem_model_1 = require("../models/todolistitem.model");
 const customerror_model_1 = require("../models/customerror.model");
-const saltRounds = 10;
 let app = (0, express_1.Router)();
 exports.app = app;
 let listCounter = 0;
@@ -117,6 +126,7 @@ app.patch("/:list_id/item/:itemId", (req, res, next) => {
             if (req.body.completed && typeof req.body.completed !== 'boolean') {
                 return next(new customerror_model_1.CustomError(400, "Completed is in an invalid format."));
             }
+            console.log(req.body.completed);
             if (req.body.completed && typeof req.body.completed === 'boolean') {
                 task.completed = req.body.completed;
                 if (task.completed == true) {
@@ -124,12 +134,16 @@ app.patch("/:list_id/item/:itemId", (req, res, next) => {
                     task.completed_by_user = { name: user_model_1.default[userIndex].name, email: user_model_1.default[userIndex].email };
                 }
             }
-            // DATE
-            if (req.body.due_date && !isNaN(new Date(req.body.due_date).getTime())) {
-                task.due_date = req.body.due_date;
-            }
-            else {
-                return next(new customerror_model_1.CustomError(400, "Due date is in an invalid format."));
+            // CHECK DATE
+            if (req.body.due_date !== undefined && req.body.due_date !== null) {
+                const parsedDate = new Date(req.body.due_date);
+                if (!isNaN(new Date(req.body.due_date).getTime())) {
+                    task.due_date = req.body.due_date;
+                }
+                else {
+                    // TODO should I just assign it null? Going to show error now for debug, but might just assign null
+                    return next(new customerror_model_1.CustomError(400, "Due date is in an invalid format."));
+                }
             }
             // CHANGE UPDATED
             task.updated_at = new Date();
@@ -263,11 +277,15 @@ app.post("/:list_id/item", (req, res, next) => {
             // ADD TASK
             let task = new todolistitem_model_1.TodoListItem(++taskCounter, requestedList.id, req.body.task);
             // CHECK DATE
-            if (req.body.due_date && !isNaN(new Date(req.body.due_date).getTime())) {
-                task.due_date = req.body.due_date;
-            }
-            else {
-                return next(new customerror_model_1.CustomError(400, "Due date is in an invalid format."));
+            if (req.body.due_date !== undefined && req.body.due_date !== null) {
+                const parsedDate = new Date(req.body.due_date);
+                if (!isNaN(new Date(req.body.due_date).getTime())) {
+                    task.due_date = req.body.due_date;
+                }
+                else {
+                    // TODO should I just assign it null? Going to show error now for debug, but might just assign null
+                    return next(new customerror_model_1.CustomError(400, "Due date is in an invalid format."));
+                }
             }
             // CHECK COMPLETED
             if (req.body.completed && typeof req.body.completed !== 'boolean') {
@@ -549,6 +567,7 @@ app.get("/", (req, res, next) => {
 app.post("/", (req, res, next) => {
     // CHECK IF LOGGED IN
     let loggedinUser = res.getHeader("valid-user");
+    console.log("TEST");
     // LOGGED IN
     if (loggedinUser) {
         // FIND USER--------------------------------------------------

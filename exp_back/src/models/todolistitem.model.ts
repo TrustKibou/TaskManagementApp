@@ -5,7 +5,7 @@ export class TodoListItem {
     completed_date:Date|null;
     created_at:Date;
     updated_at:Date;
-    due_date:Date;
+    due_date:Date|null;
     list_id:number;
     completed_by_user:{email:string, name:string}|null;
 

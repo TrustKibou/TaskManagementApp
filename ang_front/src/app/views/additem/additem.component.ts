@@ -15,6 +15,7 @@ import { TodoListService } from '../../services/todo-list.service';
 
 export class AdditemComponent {
     nameFormControl = new FormControl('', [Validators.required]);
+    dateFormControl = new FormControl<Date | null>(null);
     currentTodoId:number = 0;
     errorMessage:string = '';
 
@@ -28,7 +29,7 @@ export class AdditemComponent {
 
     async addSubTask() {
         if (!this.nameFormControl.invalid) {
-            let result = await this.todoService.addSubItem(this.nameFormControl.value as string, this.currentTodoId as number);
+            let result = await this.todoService.addSubItem(this.nameFormControl.value as string, this.currentTodoId as number, this.dateFormControl.value);
 
             if (result) {
                 this.errorMessage = "Todo list item successfully added";

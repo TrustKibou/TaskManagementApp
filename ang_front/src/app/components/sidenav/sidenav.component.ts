@@ -31,7 +31,7 @@ export class SidenavComponent implements OnInit {
         this.todoService.getExtensiveList(todo.id);
         this.router.navigate(["/"]);
     }
-
+// yterst
 
     ngOnInit(): void {
         this.todoService.listUpdated.subscribe((em:boolean) => {

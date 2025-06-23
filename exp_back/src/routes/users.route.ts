@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 
 const saltRounds =10;
 let app = Router();
-let userCounter:number = 0;
+let userCounter:number = 1;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -54,15 +54,32 @@ app.post('/login', (req, res, next)=>{
 
 
 //////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////// GET - VIEW USER LIST (TEST - TEMP METHOD)
+////////////////////////////////////////////////////// GET - GRAB USER INFO FOR CHANGE/LOG
 //////////////////////////////////////////////////////////////////////////////////////////
 
 
-app.get('/', (req, res) => {
-    console.log("Worked!");
-    return res.status(200).send(listOfUsers);
-});
+app.get('/', (req, res, next) => {
+    try {
+        const token = req.headers['authorization']?.split(' ')[1]; // BEARER
+        if (!token) return next(new CustomError(401, 'Auth token missing'));
 
+        const decoded: any = jwt.verify(token, 'SECRETKEY');
+        const foundUser = listOfUsers.find(user => user.email === decoded.email);
+
+        if (!foundUser) return next(new CustomError(404, 'User not found!'));
+
+        const userInfo = {
+            id: foundUser.id,
+            email: foundUser.email,
+            name: foundUser.name
+        };
+
+        res.status(200).send(userInfo);
+    }
+    catch (err) {
+        return next(new CustomError(401, 'Invalid token'));
+    }
+});
 
 
 

@@ -115,6 +115,8 @@ app.patch("/:list_id/item/:itemId", (req, res, next)=>{
             if (req.body.completed && typeof req.body.completed !== 'boolean') {
                 return next(new CustomError(400, "Completed is in an invalid format."));
             }
+            
+            console.log(req.body.completed);
 
             if (req.body.completed && typeof req.body.completed === 'boolean') {
                 task.completed = req.body.completed;
@@ -125,11 +127,17 @@ app.patch("/:list_id/item/:itemId", (req, res, next)=>{
                 }
             }
 
-            // DATE
-            if (req.body.due_date && !isNaN(new Date(req.body.due_date).getTime())) {
-                task.due_date =  req.body.due_date;
-            } else {
-                return next(new CustomError(400, "Due date is in an invalid format."));
+            // CHECK DATE
+            if (req.body.due_date !== undefined && req.body.due_date !== null) {
+                const parsedDate = new Date(req.body.due_date);
+
+                if (!isNaN(new Date(req.body.due_date).getTime())) {
+                    task.due_date = req.body.due_date;
+                }
+                else {
+                    // TODO should I just assign it null? Going to show error now for debug, but might just assign null
+                    return next(new CustomError(400, "Due date is in an invalid format."));
+                }
             }
 
             // CHANGE UPDATED
@@ -289,6 +297,7 @@ app.post("/:list_id/item", (req, res, next)=>{
         let listID:number = +req.params.list_id; // get list id from url
         let listIndex = listOfTodos.findIndex(e => e.id == listID);
         let requestedList;
+        
         if (listIndex == -1)
             return next(new CustomError(404, "Todo list does not exist"));
         else
@@ -314,10 +323,16 @@ app.post("/:list_id/item", (req, res, next)=>{
             let task = new TodoListItem(++taskCounter, requestedList.id, req.body.task);
 
             // CHECK DATE
-            if (req.body.due_date && !isNaN(new Date(req.body.due_date).getTime())) {
-                task.due_date =  req.body.due_date;
-            } else {
-                return next(new CustomError(400, "Due date is in an invalid format."));
+            if (req.body.due_date !== undefined && req.body.due_date !== null) {
+                const parsedDate = new Date(req.body.due_date);
+                
+                if (!isNaN(new Date(req.body.due_date).getTime())) {
+                    task.due_date = req.body.due_date;
+                }
+                else {
+                    // TODO should I just assign it null? Going to show error now for debug, but might just assign null
+                    return next(new CustomError(400, "Due date is in an invalid format."));
+                }
             }
 
             // CHECK COMPLETED
@@ -691,6 +706,8 @@ app.post("/", (req, res, next)=>{
 
     // CHECK IF LOGGED IN
     let loggedinUser = res.getHeader("valid-user");
+    
+    console.log("TEST");
 
     // LOGGED IN
     if (loggedinUser) {

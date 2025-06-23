@@ -44,14 +44,18 @@ export class TodoListService {
         this.httpClient.get<TodoList>(`${this.baseURL}todo`).subscribe((data:any)=>{
             for (let row of data) {
                 if (this.uServ.currentUserInfo) {
+                    
                     if (row.created_by == this.uServ.currentUserInfo.id) {
                         this.listOfPersonalTodos.push(row);
+                        console.log("Personal ID# " + row.created_by);
                     }
                     else if (row.public_list) {
                         this.listOfPublicTodos.push(row);
+                        console.log("Public ID# " + row.created_by);
                     }
                     else {
                         this.listOfSharedTodos.push(row);
+                        console.log("Shared ID# " + row.created_by);
                     }
                 }
                 else {
@@ -111,7 +115,7 @@ export class TodoListService {
         try {
             let response = await firstValueFrom(this.httpClient.delete(`${this.baseURL}todo/${todoID}`));
             // console.log(response);
-            this._snackBar.open("Todo list successfully deleted!, 'Close', {verticalPosition:'top', duration:2000}");
+            this._snackBar.open("Todo list successfully deleted!", 'Close', {verticalPosition:'top', duration:2000});
             this.updateTodoLists();
             return true; // success
         }
@@ -131,7 +135,7 @@ export class TodoListService {
         try {
             let response = await firstValueFrom(this.httpClient.post(`${this.baseURL}todo/${todoID}/share`, user));
             // console.log(response);
-            this._snackBar.open("Todo list successfully shared!, 'Close', {verticalPosition:'top', duration:2000}");
+            this._snackBar.open("Todo list successfully shared!", 'Close', {verticalPosition:'top', duration:2000});
             return true; // success
         }
         catch(err:any) {
@@ -166,24 +170,24 @@ export class TodoListService {
         let completed = {
             "completed": bool
         }
-        // console.log("List ID: " + listId + ", Sub ID: " + subId);
 
         try {
             let succ = await firstValueFrom(this.httpClient.patch(`${this.baseURL}todo/${listId}/item/${subId}`, completed)); // interceptor auto sends token
 
         }
         catch(err:any) {
-            this._snackBar.open(`There was an error completing the subtask! Error ${err}: ${err.message}, 'Close', {verticalPosition:'top', duration:2000}`)
+            this._snackBar.open(`There was an error completing the subtask! Error ${err}: ${err.message}`, 'Close', {verticalPosition:'top', duration:2000})
         }
     }
 
 
     // ADD SUB LIST ITEM
-    async addSubItem(taskTitle:string, listId:number) {
+    async addSubItem(taskTitle:string, listId:number, dueDate?: Date | null) {
 
         let task = {
-            "task": taskTitle
-        }
+            "task": taskTitle,
+            "due_date": dueDate ? dueDate.toISOString() : undefined
+        };
 
         try {
             let succ = await firstValueFrom(this.httpClient.post(`${this.baseURL}todo/${listId}/item/`, task));

@@ -15,13 +15,23 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
+var __importStar = (this && this.__importStar) || (function () {
+    var ownKeys = function(o) {
+        ownKeys = Object.getOwnPropertyNames || function (o) {
+            var ar = [];
+            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
+            return ar;
+        };
+        return ownKeys(o);
+    };
+    return function (mod) {
+        if (mod && mod.__esModule) return mod;
+        var result = {};
+        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+        __setModuleDefault(result, mod);
+        return result;
+    };
+})();
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -36,7 +46,7 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const saltRounds = 10;
 let app = (0, express_1.Router)();
 exports.app = app;
-let userCounter = 0;
+let userCounter = 1;
 //////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////// POST --- LOGIN
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -69,11 +79,27 @@ app.post('/login', (req, res, next) => {
     }
 });
 //////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////// GET - VIEW USER LIST (TEST - TEMP METHOD)
+////////////////////////////////////////////////////// GET - GRAB USER INFO FOR CHANGE/LOG
 //////////////////////////////////////////////////////////////////////////////////////////
-app.get('/', (req, res) => {
-    console.log("Worked!");
-    return res.status(200).send(user_model_1.default);
+app.get('/', (req, res, next) => {
+    try {
+        const token = req.headers['authorization']?.split(' ')[1]; // BEARER
+        if (!token)
+            return next(new customerror_model_1.CustomError(401, 'Auth token missing'));
+        const decoded = jsonwebtoken_1.default.verify(token, 'SECRETKEY');
+        const foundUser = user_model_1.default.find(user => user.email === decoded.email);
+        if (!foundUser)
+            return next(new customerror_model_1.CustomError(404, 'User not found!'));
+        const userInfo = {
+            id: foundUser.id,
+            email: foundUser.email,
+            name: foundUser.name
+        };
+        res.status(200).send(userInfo);
+    }
+    catch (err) {
+        return next(new customerror_model_1.CustomError(401, 'Invalid token'));
+    }
 });
 //////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////// POST --- ROOT (CREATE)
