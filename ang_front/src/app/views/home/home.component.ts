@@ -97,37 +97,35 @@ export class HomeComponent implements OnInit {
             this.router.navigate(['/share', this.currentTodo.id]);
     }
 
+    
+    
+    
+    
     // COMPLETE SUB TASK
-    completeSubTask(subId:number) {
-
-        let shared:boolean = false;
-
-        if (this.currentTodoExtensive) {
-            for (let user of this.currentTodoExtensive.shared_with) {
-                if (user.email == this.currentUser?.email)
-                    shared = true;
-            }
+    completeSubTask(subId: number, currentlyCompleted: boolean) {
+        const shared = this.currentTodoExtensive?.shared_with.some(user => user.email === this.currentUser?.email) ?? false;
+            
+        // ENSURES USER HAS ACCESS - THIS SHOULD NEVER EXECUTE. IT'S JUST A SAFETY BACKUP/ALT
+        if (this.currentUser?.id !== this.currentTodo?.created_by && !shared) {
+            this._snackBar.open(`You are not the owner of this todo list! You cannot complete sub-items; your change will not affect the server.`, 'Close', { duration: 3000 });
+            return;
         }
 
-        if (!this.subItemFormControl.invalid && this.currentTodo) {
-            if (this.currentUser?.id != this.currentTodo.created_by && !shared) {
-                this._snackBar.open(`You are not the owner of this todo list! You cannot complete sub-items; your change will not affect the server. (this is due to the inability to use the disabled property with Angular Material checkbox)`)
-
-                // // RESET CHECKBOX
-                // if (this.subItemFormControl.value == "true") {
-                //     this.subItemFormControl.setValue("false");
-                //     console.log("set false")
-                // }
-                // else {
-                //     this.subItemFormControl.setValue("true");
-                //     console.log("set true")
-                // }
-            }
-            else {
-                this.todoService.completeItem(this.currentTodo.id, subId, this.subItemFormControl.value as string);
-            }
-        }
+        const newStatus = !currentlyCompleted;
+        this.todoService.completeItem(this.currentTodo!.id, subId, newStatus.toString());
     }
+    
+    
+    
+    // CHECKS IF USER HAS LIST PERMISSIONS - IF NOT, GRAY OUT TASK CHECKBOX (handled in html)
+    hasListPermissions():boolean {
+        const isOwner = this.currentUser?.id === this.currentTodo?.created_by;
+        const isShared = this.currentTodoExtensive?.shared_with.some(
+            user => user.email === this.currentUser?.email
+        );
+        return !!(isOwner || isShared);
+    }
+    
 
     // ADD SUB-ITEM
     addSubItem() {

@@ -15,8 +15,18 @@ Run `node dist/main.js` in 'exp_back' to launch Express API.
 
 
 
-## Notes for Running
-Current bug with checked tasks not retaining state after refresh or component swap.
+## Recent Updates
+- Repaired all endpoints; app is fully-functioning
+- Email logins are no longer case-sensitive
+- List state is no longer preserved across logins
+- Disabled checkboxes for public lists (for non-owners)
+
+
+
+
+## Current Known Bugs
+- shared_with attr error in shared lists (doesn't effect current functionality; just need to fix console log)
+- due date doesnt show in tasks (haven't implemented this yet, so this is more of a feature I need to add)
 
 
 

@@ -35,6 +35,8 @@ export class NavbarComponent implements OnInit {
         this.uServ.currentUserInfo = null;
         this.uServ.currentUserToken = null;
         this.todoService.updateTodoLists();
+        this.todoService.currentTodo = null;
+        this.todoService.currentExtensiveTodo = null;
         this.router.navigate(['/login']);
         // console.log("Logout2");
     }
